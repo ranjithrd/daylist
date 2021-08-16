@@ -2,12 +2,14 @@ import moment from "moment"
 import React, { useEffect, useState } from "react"
 
 function Home() {
-	const [tasks, setTasks] = useState([
-		{
-			name: "Create today's tasks",
-			completed: false,
-		},
-	])
+	const [tasks, setTasks] = useState(
+		JSON.parse(localStorage.getItem("tasks")) ?? [
+			{
+				name: "Create today's tasks",
+				completed: false,
+			},
+		]
+	)
 	const [processedTasks, setProcessedTasks] = useState([])
 
 	const [creating, setCreating] = useState(false)
