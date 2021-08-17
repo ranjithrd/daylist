@@ -4,10 +4,16 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"serve": "vite preview"
+		"serve": "vite preview",
+		"pack:mac": "nativefier 'daylist.netlify.app' build --name 'Daylist' --icon assets/daylist_icon_png.png --platform mac",
+		"pack:linux": "nativefier 'daylist.netlify.app' build --name 'Daylist' --icon assets/daylist_icon_png.png --platform linux",
+		"pack:windows": "nativefier 'daylist.netlify.app' build --name 'Daylist' --icon assets/daylist_icon_ico.ico --platform windows",
+		"pack": "yarn run pack:mac && yarn run pack:linux && yarn run pack:windows"
 	},
 	"dependencies": {
 		"autoprefixer": "^10.3.1",
+		"electron-dev": "^1.0.1",
+		"electron-is-dev": "^2.0.0",
 		"moment": "^2.29.1",
 		"postcss": "^8.3.6",
 		"react": "^17.0.0",
@@ -17,20 +23,28 @@
 	},
 	"devDependencies": {
 		"@vitejs/plugin-react-refresh": "^1.3.1",
-		"vite": "^2.4.4"
+		"concurrently": "^6.2.1",
+		"cross-env": "^7.0.3",
+		"electron": "^13.1.9",
+		"electron-builder": "^22.11.7",
+		"vite": "^2.4.4",
+		"wait-on": "^6.0.0"
 	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ranjithrd/nitrate"
-	},
-	"license": "MIT",
 	"author": "Ranjith RD",
-	"keywords": [
-		"react",
-		"starter",
-		"template",
-		"tailwindcss",
-		"vite",
-		"starter project"
-	]
+	"build": {
+		"appId": "com.daylist.app",
+		"productName": "Daylist",
+		"files": [
+			{
+				"from": "dist/**/*",
+				"to": "*",
+				"filter": [
+					"**/*"
+				]
+			}
+		],
+		"directories": {
+			"output": "build"
+		}
+	}
 }
